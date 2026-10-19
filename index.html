@@ -85,7 +85,7 @@ function ld(){var b=cp(DEF);try{var d=JSON.parse(localStorage.getItem(K)||localS
 function sv(){try{localStorage.setItem(K,JSON.stringify(S))}catch(e){toast("Almacenamiento lleno")}}
 function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
 function hap(n){try{navigator.vibrate&&navigator.vibrate(n||8)}catch(e){}}
-function toast(t,fn){var e=$("toast");e.textContent=t;e.onclick=fn||null;e.classList.add("on");clearTimeout(toast.t);toast.t=setTimeout(function(){e.classList.remove("on")},2200)}
+function toast(t,fn){var e=$("toast");e.textContent=t;e.onclick=fn||null;e.classList.add("on");clearTimeout(toast.t);toast.t=setTimeout(function(){e.classList.remove("on");e.onclick=null},2200)}
 function col(c){var ks=Object.keys(S.subj),i=Math.max(0,ks.indexOf(c));return"hsl("+(i*47+210)%360+",62%,52%)"}
 function mn(h){var p=(h||"08:00").split(":");return+p[0]*60+(+p[1]||0)}
 function fm(m){m=(m+1440)%1440;var h=Math.floor(m/60),x=m%60;return(h<10?"0":"")+h+":"+(x<10?"0":"")+x}

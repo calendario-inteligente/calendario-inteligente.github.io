@@ -1,4 +1,5 @@
-var C="hdi-v4",F=["./","./index.html","./manifest.json","./icon-192.png","./icon-512.png"];
+var C="hdi-v5",F=["./","./index.html","./manifest.json","./icon-192.png","./icon-512.png"];
 self.addEventListener("install",function(e){e.waitUntil(caches.open(C).then(function(c){return Promise.all(F.map(function(u){return c.add(u).catch(function(){})}))}).then(function(){return self.skipWaiting()}))});
 self.addEventListener("activate",function(e){e.waitUntil(caches.keys().then(function(k){return Promise.all(k.filter(function(x){return x!=C}).map(function(x){return caches.delete(x)}))}).then(function(){return self.clients.claim()}))});
 self.addEventListener("fetch",function(e){if(e.request.method!="GET")return;e.respondWith(caches.match(e.request,{ignoreSearch:true}).then(function(r){var f=fetch(e.request).then(function(n){if(n&&n.ok){var cl=n.clone();caches.open(C).then(function(c){c.put(e.request,cl)})}return n}).catch(function(){return r||caches.match("./index.html")});return r||f}))});
+self.addEventListener("notificationclick",function(e){e.notification.close();e.waitUntil(clients.matchAll({type:"window",includeUncontrolled:true}).then(function(l){for(var i=0;i<l.length;i++){if("focus"in l[i])return l[i].focus()}return clients.openWindow("./")}))});
